@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="IMAGEV_EXPENSES" accessibleRole="BUTTON" fitHeight="150.0" fitWidth="200.0" layoutX="24.0" layoutY="100.0" onMouseClicked="#seeExpenses" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icon/expense%20icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="IMAGEV_INCOMES" accessibleRole="BUTTON" fitHeight="150.0" fitWidth="200.0" layoutX="428.0" layoutY="112.0" onMouseClicked="#seeIncomes" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icon/income%20icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="IMAGEV_BALANCE" accessibleRole="BUTTON" fitHeight="136.0" fitWidth="133.0" layoutX="234.0" layoutY="121.0" onMouseClicked="#seeBalance" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../icon/balance%20icon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="70.0" layoutY="261.0" text="Egresos" textFill="#948c8c">
+         <font>
+            <Font name="Arial Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="472.0" layoutY="261.0" text="Ingresos" textFill="#948c8c">
+         <font>
+            <Font name="Arial Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="272.0" layoutY="271.0" text="Balance" textFill="#948c8c">
+         <font>
+            <Font name="Arial Italic" size="16.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
