@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class MainWindow implements Initializable{
@@ -31,13 +33,13 @@ public class MainWindow implements Initializable{
     }
 
     @FXML
-    void registerExpenses(ActionEvent event) {
-
-    }
-
-    @FXML
-    void registerIncomes(ActionEvent event) {
-
+    void registerIncomeOrExpense(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/registerExpenseOrIncome-window.fxml"));
+    	loader.setController(new RegisterExpenseOrIncome());
+    	Parent root = loader.load();
+    	
+    	MAIN_PANE.getChildren().setAll(root);
+    	MAIN_PANE.getScene().getWindow().sizeToScene();
     }
 
     @FXML
@@ -46,13 +48,23 @@ public class MainWindow implements Initializable{
     }
 
     @FXML
-    void seeExpenses(ActionEvent event) {
-
+    void seeExpenses(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/expensesList-window.fxml"));
+    	loader.setController(new ExpensesList());
+    	Parent root = loader.load();
+    	
+    	MAIN_PANE.getChildren().setAll(root);
+    	MAIN_PANE.getScene().getWindow().sizeToScene();
     }
 
     @FXML
-    void seeIncomes(ActionEvent event) {
-
+    void seeIncomes(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/incomesList-window.fxml"));
+    	loader.setController(new IncomesList());
+    	Parent root = loader.load();
+    	
+    	MAIN_PANE.getChildren().setAll(root);
+    	MAIN_PANE.getScene().getWindow().sizeToScene();
     }
 
 	@Override
@@ -61,11 +73,11 @@ public class MainWindow implements Initializable{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/main-functions-window.fxml"));
 			loader.setController(new MainFunctionsWindow());
 			Parent root = loader.load();
+			
 			MAIN_PANE.getChildren().setAll(root);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 }
