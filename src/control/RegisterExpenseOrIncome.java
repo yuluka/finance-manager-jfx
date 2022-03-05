@@ -115,7 +115,6 @@ public class RegisterExpenseOrIncome {
     	Parent root = loader.load();
     	
     	MAIN_PANE.getChildren().setAll(root);
-    	MAIN_PANE.setPrefSize(600, 400);
     	MAIN_PANE.getScene().getWindow().sizeToScene();
     }
 }

@@ -1,16 +1,19 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Income {
 	private double amount;
 	private String description;
 	private Date date;
+	private String dateStr;
 	
 	public Income(double amount, String description, Date date) {
 		this.amount = amount;
 		this.description = description;
 		this.date = date;
+		setDateStr();
 	}
 
 	public double getAmount() {
@@ -35,5 +38,18 @@ public class Income {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String getDateStr() {
+		return dateStr;
+	}
+
+	public void setDateStr() {
+		dateStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+	}
+	
+	public void addValues(Income incomeToAdd) {
+		amount += incomeToAdd.getAmount();
+		description += "\n" + incomeToAdd.getDescription();
 	}
 }

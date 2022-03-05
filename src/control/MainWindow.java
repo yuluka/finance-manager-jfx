@@ -9,11 +9,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-public class MainWindow implements Initializable{
+public class MainWindow implements Initializable {
 	@FXML
     private Pane MAIN_PANE;
 
@@ -23,13 +21,23 @@ public class MainWindow implements Initializable{
     }
 
     @FXML
-    void filterExpenses(ActionEvent event) {
-
+    void filterExpenses(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/expensesFiltered-window.fxml"));
+    	loader.setController(new ExpensesFiltered());
+    	Parent root = loader.load();
+    	
+    	MAIN_PANE.getChildren().setAll(root);
+    	MAIN_PANE.getScene().getWindow().sizeToScene();
     }
 
     @FXML
-    void filterIncomes(ActionEvent event) {
-
+    void filterIncomes(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/incomesFiltered-window.fxml"));
+    	loader.setController(new IncomesFiltered());
+    	Parent root = loader.load();
+    	
+    	MAIN_PANE.getChildren().setAll(root);
+    	MAIN_PANE.getScene().getWindow().sizeToScene();
     }
 
     @FXML
@@ -43,8 +51,13 @@ public class MainWindow implements Initializable{
     }
 
     @FXML
-    void seeBalance(ActionEvent event) {
-
+    void seeBalance(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/balanceList-window.fxml"));
+    	loader.setController(new BalanceList());
+    	Parent root = loader.load();
+    	
+    	MAIN_PANE.getChildren().setAll(root);
+    	MAIN_PANE.getScene().getWindow().sizeToScene();
     }
 
     @FXML

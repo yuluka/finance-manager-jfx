@@ -10,11 +10,15 @@ import exceptions.TypeNotSelectedException;
 
 public class FinanceManagerData {
 	private ArrayList<Expense> expenses;
+	private ArrayList<Expense> filteredExpenses;
 	private ArrayList<Income> incomes;
+	private ArrayList<Income> filteredIncomes;
+	private ArrayList<Balance> balances;
 	
 	public FinanceManagerData() {
 		expenses = new ArrayList<>();
 		incomes = new ArrayList<>();
+		balances = new ArrayList<>();
 	}
 	
 	public void addExpenseOrIncome(double amount, String description, String dateStr, int type) throws ParseException {
@@ -25,9 +29,89 @@ public class FinanceManagerData {
 		}else if(type == 0) {
 			throw new TypeNotSelectedException();
 		}else if(type == 1){
-			expenses.add(new Expense(amount, description, date));
+			addExpenseByDate(new Expense(amount, description, date));
 		}else {
-			incomes.add(new Income(amount, description, date));
+			addIncomeByDate(new Income(amount, description, date));
 		}
+		
+		makeBalance();
+	}
+	
+	public void addIncomeByDate(Income newIncome) {
+		boolean found = false;
+		
+		for (int i = 0; i < incomes.size() && !found; i++) {
+			if(incomes.get(i).getDate().equals(newIncome.getDate())) {
+				incomes.get(i).addValues(newIncome);
+				found = true;
+			}
+		}
+		
+		if(!found) {
+			incomes.add(newIncome);
+		}
+	}
+	
+	public void addExpenseByDate(Expense newExpense) {
+		boolean found = false;
+		
+		for (int i = 0; i < expenses.size() && !found; i++) {
+			if(expenses.get(i).getDate().equals(newExpense.getDate())) {
+				expenses.get(i).addValues(newExpense);
+				found = true;
+			}
+		}
+		
+		if(!found) {
+			expenses.add(newExpense);
+		}
+	}
+	
+	public void filterExpenses(Date initDate, Date finalDate) {
+		filteredExpenses = new ArrayList<Expense>();
+		
+		for (int i = 0; i < expenses.size(); i++) {
+			if(expenses.get(i).getDate().getTime() >= initDate.getTime() && expenses.get(i).getDate().getTime() <= finalDate.getTime()) {
+				filteredExpenses.add(expenses.get(i));
+			}else if(expenses.get(i).getDate().getTime() <= initDate.getTime() && expenses.get(i).getDate().getTime() >= finalDate.getTime()) {
+				filteredExpenses.add(expenses.get(i));
+			}
+		}
+	}
+	
+	public void filterIncomes(Date initDate, Date finalDate) {
+		filteredIncomes = new ArrayList<Income>();
+		
+		for (int i = 0; i < incomes.size(); i++) {
+			if(incomes.get(i).getDate().getTime() >= initDate.getTime() && incomes.get(i).getDate().getTime() <= finalDate.getTime()) {
+				filteredIncomes.add(incomes.get(i));
+			}else if(incomes.get(i).getDate().getTime() <= initDate.getTime() && incomes.get(i).getDate().getTime() >= finalDate.getTime()) {
+				filteredIncomes.add(incomes.get(i));
+			}
+		}
+	}
+	
+	public void makeBalance() {
+		
+	}
+	
+	public ArrayList<Expense> getExpenses() {
+		return expenses;
+	}
+	
+	public ArrayList<Expense> getFilteredExpenses() {
+		return filteredExpenses;
+	}
+
+	public ArrayList<Income> getIncomes() {
+		return incomes;
+	}
+	
+	public ArrayList<Income> getFilteredIncomes() {
+		return filteredIncomes;
+	}
+
+	public ArrayList<Balance> getBalances() {
+		return balances;
 	}
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="MAIN_PANE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="MAIN_PANE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="59.0" layoutY="23.0" text="Registrar gasto o">
          <font>
@@ -58,5 +58,7 @@
             <Font name="Arial Bold Italic" size="22.0" />
          </font>
       </Label>
+      <Label layoutX="270.0" layoutY="186.0" text="   " />
+      <Label layoutX="140.0" layoutY="374.0" prefHeight="11.0" prefWidth="20.0" text="      " />
    </children>
 </Pane>

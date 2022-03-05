@@ -2,8 +2,6 @@ package control;
 
 import java.io.IOException;
 
-import javax.tools.Tool;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,7 +25,12 @@ public class MainFunctionsWindow {
     
     @FXML
     void seeBalance(MouseEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/balanceList-window.fxml"));
+    	loader.setController(new BalanceList());
+    	Parent root = loader.load();
     	
+    	MAIN_PANE.getChildren().setAll(root);
+    	MAIN_PANE.getScene().getWindow().sizeToScene();
     }
 
     @FXML

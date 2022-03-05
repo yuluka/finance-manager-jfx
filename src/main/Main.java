@@ -21,6 +21,7 @@ public class Main extends Application{
 		
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
+		stage.setTitle("Finance Manager");
 		stage.setScene(scene);
 		stage.show();
 	}

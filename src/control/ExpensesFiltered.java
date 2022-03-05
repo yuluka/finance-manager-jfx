@@ -2,6 +2,9 @@ package control;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -12,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,18 +25,22 @@ import javafx.scene.layout.Pane;
 import model.Expense;
 import model.StaticObjects;
 
-public class ExpensesList implements Initializable {
-	@FXML
-    private Pane MAIN_PANE;
-	
-    @FXML
-    private ImageView BTTN_BACK;
-    
-    @FXML
-    private Button BTTN_EDIT;
+public class ExpensesFiltered implements Initializable {
 
     @FXML
-    private Button BTTN_REMOVE;
+    private ImageView BTTN_BACK;
+
+    @FXML
+    private Button BTTN_FILTER;
+
+    @FXML
+    private DatePicker DP_FINALDATE;
+
+    @FXML
+    private DatePicker DP_INITDATE;
+
+    @FXML
+    private Pane MAIN_PANE;
 
     @FXML
     private TableColumn<Expense, Double> TVCOLUMN_AMOUNT;
@@ -45,8 +53,6 @@ public class ExpensesList implements Initializable {
 
     @FXML
     private TableView<Expense> TV_EXPENSES;
-    
-    private Expense selectedExpense;
 
     @FXML
     void back(MouseEvent event) throws IOException {
@@ -58,45 +64,37 @@ public class ExpensesList implements Initializable {
     	MAIN_PANE.getScene().getWindow().sizeToScene();
     }
 
+    @FXML
+    void filterExpenses(ActionEvent event) throws ParseException {
+    	try {
+			Date initDate = new SimpleDateFormat("yyyy-MM-dd").parse(DP_INITDATE.getValue().toString());
+			Date finalDate = new SimpleDateFormat("yyyy-MM-dd").parse(DP_FINALDATE.getValue().toString());
+			
+			StaticObjects.financeManager.filterExpenses(initDate, finalDate);
+			updateTVInfo();
+		} catch (NullPointerException e) {
+			
+		}
+    }
+    
+    public void updateTVInfo() {
+    	ObservableList<Expense> filteredExpenses = FXCollections.observableList(StaticObjects.financeManager.getFilteredExpenses());
+		
+		TVCOLUMN_AMOUNT.setCellValueFactory(new PropertyValueFactory<Expense, Double>("amount"));
+		TVCOLUMN_DATE.setCellValueFactory(new PropertyValueFactory<Expense, String>("dateStr"));
+		TVCOLUMN_DESCRIPTION.setCellValueFactory(new PropertyValueFactory<Expense, String>("description"));
+		
+		TV_EXPENSES.setItems(filteredExpenses);
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ObservableList<Expense> expenses = FXCollections.observableList(StaticObjects.financeManager.getExpenses());
 		
 		TVCOLUMN_AMOUNT.setCellValueFactory(new PropertyValueFactory<Expense, Double>("amount"));
-		TVCOLUMN_DESCRIPTION.setCellValueFactory(new PropertyValueFactory<Expense, String>("description"));
 		TVCOLUMN_DATE.setCellValueFactory(new PropertyValueFactory<Expense, String>("dateStr"));
-		
-		TV_EXPENSES.setItems(expenses);
-		
-		TV_EXPENSES.setOnMouseClicked(event -> {
-			selectedExpense = TV_EXPENSES.getSelectionModel().getSelectedItem();
-		});
-	}
-	
-	public void updateTVInfo() {
-		ObservableList<Expense> expenses = FXCollections.observableList(StaticObjects.financeManager.getExpenses());
-		
-		TVCOLUMN_AMOUNT.setCellValueFactory(new PropertyValueFactory<Expense, Double>("amount"));
 		TVCOLUMN_DESCRIPTION.setCellValueFactory(new PropertyValueFactory<Expense, String>("description"));
-		TVCOLUMN_DATE.setCellValueFactory(new PropertyValueFactory<Expense, String>("dateStr"));
 		
 		TV_EXPENSES.setItems(expenses);
 	}
-	
-    @FXML
-    void editSelectedItem(ActionEvent event) {
-
-    }
-
-    @FXML
-    void removeSelectedItem(ActionEvent event) {
-    	try {
-			if(!selectedExpense.equals(null)) {
-				StaticObjects.financeManager.getExpenses().remove(selectedExpense);
-				updateTVInfo();
-			}
-		} catch (NullPointerException e) {
-			
-		}
-    }
 }
