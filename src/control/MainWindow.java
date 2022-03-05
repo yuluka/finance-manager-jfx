@@ -16,11 +16,6 @@ public class MainWindow implements Initializable {
     private Pane MAIN_PANE;
 
     @FXML
-    void filterBalance(ActionEvent event) {
-
-    }
-
-    @FXML
     void filterExpenses(ActionEvent event) throws IOException {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/expensesFiltered-window.fxml"));
     	loader.setController(new ExpensesFiltered());

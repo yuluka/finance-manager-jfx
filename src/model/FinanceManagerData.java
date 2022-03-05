@@ -13,12 +13,11 @@ public class FinanceManagerData {
 	private ArrayList<Expense> filteredExpenses;
 	private ArrayList<Income> incomes;
 	private ArrayList<Income> filteredIncomes;
-	private ArrayList<Balance> balances;
+	private double balance;
 	
 	public FinanceManagerData() {
 		expenses = new ArrayList<>();
 		incomes = new ArrayList<>();
-		balances = new ArrayList<>();
 	}
 	
 	public void addExpenseOrIncome(double amount, String description, String dateStr, int type) throws ParseException {
@@ -33,8 +32,6 @@ public class FinanceManagerData {
 		}else {
 			addIncomeByDate(new Income(amount, description, date));
 		}
-		
-		makeBalance();
 	}
 	
 	public void addIncomeByDate(Income newIncome) {
@@ -91,8 +88,37 @@ public class FinanceManagerData {
 		}
 	}
 	
-	public void makeBalance() {
+	public void calculateBalance() {
+		double incomesSummation = 0;
+		double expensesSummation = 0;
 		
+		for (int i = 0; i < incomes.size(); i++) {
+			incomesSummation += incomes.get(i).getAmount();
+		}
+		
+		for (int i = 0; i < expenses.size(); i++) {
+			expensesSummation += expenses.get(i).getAmount();
+		}
+		
+		balance = incomesSummation - expensesSummation;
+	}
+	
+	public void calculateFilteredBalance(Date initDate, Date finalDate) {
+		filterExpenses(initDate, finalDate);
+		filterIncomes(initDate, finalDate);
+		
+		double incomesSummation = 0;
+		double expensesSummation = 0;
+		
+		for (int i = 0; i < filteredIncomes.size(); i++) {
+			incomesSummation += filteredIncomes.get(i).getAmount();
+		}
+		
+		for (int i = 0; i < filteredExpenses.size(); i++) {
+			expensesSummation += filteredExpenses.get(i).getAmount();
+		}
+		
+		balance = incomesSummation - expensesSummation;
 	}
 	
 	public ArrayList<Expense> getExpenses() {
@@ -111,7 +137,7 @@ public class FinanceManagerData {
 		return filteredIncomes;
 	}
 
-	public ArrayList<Balance> getBalances() {
-		return balances;
+	public double getBalance() {
+		return balance;
 	}
 }

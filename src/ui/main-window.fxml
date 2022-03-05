@@ -30,7 +30,6 @@
             <Menu mnemonicParsing="false" text="Balance">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#seeBalance" text="Ver balance" />
-                  <MenuItem mnemonicParsing="false" onAction="#filterBalance" text="Ver balance filtrado" />
               </items>
             </Menu>
         </menus>
